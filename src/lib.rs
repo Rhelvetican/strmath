@@ -52,13 +52,13 @@ impl From<String> for Wrapper {
         Wrapper(s)
     }
 }
-unsafe impl Send for Wrapper {
-    // This is safe because Wrapper is not a reference type
-}
+// unsafe impl Send for Wrapper {
+//     // This is safe because Wrapper is not a reference type
+// }
 
-unsafe impl Sync for Wrapper {
-    // This is safe because Wrapper is not a reference type
-}
+// unsafe impl Sync for Wrapper {
+//     // This is safe because Wrapper is not a reference type
+// }
 
 impl Display for Wrapper {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
