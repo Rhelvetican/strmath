@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use std::{
     convert::From,
     fmt::{Display, Formatter, Result},
@@ -34,6 +36,9 @@ impl Wrapper {
     }
     pub fn reverse(&mut self) {
         self.0 = self.0.chars().rev().collect();
+    }
+    pub fn push(&mut self, s: &str) {
+        self.0 += s;
     }
 }
 
