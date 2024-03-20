@@ -7,4 +7,9 @@ readme = "README.md"
 license = "MIT"
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/Rhelvetican/strmath"
+homepage = "https://github.com/Rhelvetican/strmath"
 
+[lib]
+name = "strmath"
+path = "src/lib.rs"
