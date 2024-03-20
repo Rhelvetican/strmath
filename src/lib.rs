@@ -149,6 +149,44 @@ impl MulAssign for Wrapper {
     }
 }
 
+impl Div<char> for Wrapper {
+    type Output = Wrapper;
+    fn div(self, other: char) -> Self::Output {
+        Wrapper(match self.0.find(other) {
+            Some(i) => self.0[..i].to_string(),
+            None => self.0.clone(),
+        })
+    }
+}
+
+impl DivAssign<char> for Wrapper {
+    fn div_assign(&mut self, other: char) {
+        match self.0.find(other) {
+            Some(i) => self.0 = self.0[..i].to_string(),
+            None => self.0 = self.0.clone(),
+        }
+    }
+}
+
+impl Rem<char> for Wrapper {
+    type Output = Wrapper;
+    fn rem(self, other: char) -> Self::Output {
+        Wrapper(match self.0.rfind(other) {
+            Some(i) => self.0[bump(i)..].to_string(),
+            None => self.0.clone(),
+        })
+    }
+}
+
+impl RemAssign<char> for Wrapper {
+    fn rem_assign(&mut self, other: char) {
+        match self.0.rfind(other) {
+            Some(i) => self.0 = self.0[bump(i)..].to_string(),
+            None => self.0 = self.0.clone(),
+        }
+    }
+}
+
 impl Neg for Wrapper {
     type Output = Wrapper;
     fn neg(self) -> Self::Output {
@@ -156,10 +194,55 @@ impl Neg for Wrapper {
     }
 }
 
+impl Div<&str> for Wrapper {
+    type Output = Wrapper;
+    fn div(self, other: &str) -> Self::Output {
+        Wrapper(match self.0.find(other) {
+            Some(i) => self.0[..i].to_string(),
+            None => self.0.clone(),
+        })
+    }
+}
+
+impl DivAssign<&str> for Wrapper {
+    fn div_assign(&mut self, other: &str) {
+        match self.0.find(other) {
+            Some(i) => self.0 = self.0[..i].to_string(),
+            None => self.0 = self.0.clone(),
+        }
+    }
+}
+
+impl Rem<&str> for Wrapper {
+    type Output = Wrapper;
+    fn rem(self, other: &str) -> Self::Output {
+        Wrapper(match self.0.rfind(other) {
+            Some(i) => self.0[bump(i)..].to_string(),
+            None => self.0.clone(),
+        })
+    }
+}
+
+impl RemAssign<&str> for Wrapper {
+    fn rem_assign(&mut self, other: &str) {
+        match self.0.rfind(other) {
+            Some(i) => self.0 = self.0[bump(i)..].to_string(),
+            None => self.0 = self.0.clone(),
+        }
+    }
+}
+
 // Hacky fixes for stuffs
 fn convert_to_usize(a: isize) -> usize {
     let a = if a < 0 { -a } else { a };
     a as usize
+}
+
+fn bump<T>(a: T) -> T
+where
+    T: Add<Output = T> + From<u8>,
+{
+    a + T::from(1)
 }
 
 #[cfg(test)]
@@ -232,5 +315,100 @@ mod test {
         let w2: isize = -5;
         let w3: Wrapper = w1 * w2;
         assert_eq!(w3.0, " olleh olleh olleh olleh olleh".to_string());
+    }
+
+    #[test]
+    fn mul_assign_wrapper() {
+        let mut w1 = super::Wrapper::from("hello ");
+        let w2 = super::Wrapper::from("world");
+        w1 *= w2;
+        assert_eq!(w1.0, "hello hello hello hello hello ".to_string());
+    }
+
+    #[test]
+    fn mul_assign_wrapper_with_int() {
+        let mut w1 = super::Wrapper::from("hello ");
+        let w2: isize = 3;
+        w1 *= w2;
+        assert_eq!(w1.0, "hello hello hello ".to_string());
+    }
+
+    #[test]
+    fn mul_assign_wrapper_with_neg_int() {
+        let mut w1 = super::Wrapper::from("hello ");
+        let w2: isize = -5;
+        w1 *= w2;
+        assert_eq!(w1.0, " olleh olleh olleh olleh olleh".to_string());
+    }
+
+    #[test]
+    fn div_wrapper() {
+        let w1 = super::Wrapper::from("hello world");
+        let w2: char = ' ';
+        let w3 = w1 / w2;
+        assert_eq!(w3.0, "hello".to_string());
+    }
+
+    #[test]
+    fn div_assign_wrapper() {
+        let mut w1 = super::Wrapper::from("hello world");
+        let w2: char = ' ';
+        w1 /= w2;
+        assert_eq!(w1.0, "hello".to_string());
+    }
+
+    #[test]
+    fn rem_wrapper() {
+        let w1 = super::Wrapper::from("hello world");
+        let w2: char = ' ';
+        let w3 = w1 % w2;
+        assert_eq!(w3.0, "world".to_string());
+    }
+
+    #[test]
+    fn rem_assign_wrapper() {
+        let mut w1 = super::Wrapper::from("hello world");
+        let w2: char = ' ';
+        w1 %= w2;
+        assert_eq!(w1.0, "world".to_string());
+    }
+
+    #[test]
+    fn neg_wrapper() {
+        let w1 = super::Wrapper::from("hello world");
+        let w2 = -w1;
+        assert_eq!(w2.0, "dlrow olleh".to_string());
+    }
+
+    #[test]
+    fn div_wrapper_with_str() {
+        let w1 = super::Wrapper::from("hello world");
+        let w2 = " ";
+        let w3 = w1 / w2;
+        assert_eq!(w3.0, "hello".to_string());
+    }
+
+    #[test]
+    fn div_assign_wrapper_with_str() {
+        let mut w1 = super::Wrapper::from("hello world");
+        let w2 = " ";
+        w1 /= w2;
+        assert_eq!(w1.0, "hello".to_string());
+    }
+
+    #[test]
+    fn rem_wrapper_with_str() {
+        let w1 = super::Wrapper::from("hello world");
+        let w2 = " ";
+        let w3 = w1 % w2;
+        assert_eq!(w3.0, "world".to_string());
+    }
+
+    #[test]
+    fn rem_assign_wrapper_with_str() {
+        let mut w1 = super::Wrapper::from("hello world");
+        let w2 = " ";
+        w1 %= w2;
+        assert_eq!(w1.0, "world".to_string());
     }
 }
