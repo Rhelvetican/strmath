@@ -2,6 +2,7 @@ use std::{
     convert::From,
     fmt::{Display, Formatter, Result},
     ops::*,
+    str::Chars,
 };
 
 #[derive(Debug, Clone, PartialEq, Default)]
@@ -38,6 +39,9 @@ impl Wrapper {
     }
     pub fn push(&mut self, s: &str) {
         self.0 += s;
+    }
+    pub fn chars(&self) -> Chars<'_> {
+        self.0.chars()
     }
 }
 
@@ -264,8 +268,8 @@ fn convert_to_usize(a: isize) -> usize {
 }
 
 fn bump<T>(a: T) -> T
-where
-    T: Add<Output = T> + From<u8>,
+    where
+        T: Add<Output=T> + From<u8>,
 {
     a + T::from(1)
 }
