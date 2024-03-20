@@ -21,6 +21,64 @@ impl Display for Wrapper {
     }
 }
 
+impl Add for Wrapper {
+    type Output = Wrapper;
+    fn add(self, other: Self) -> Self::Output {
+        Wrapper(self.0 + &other.0)
+    }
+}
+
+impl AddAssign for Wrapper {
+    fn add_assign(&mut self, other: Self) {
+        self.0 += &other.0;
+    }
+}
+
+impl Sub for Wrapper {
+    type Output = Wrapper;
+    fn sub(self, other: Self) -> Self::Output {
+        let mut result = self.0;
+        for c in other.0.chars() {
+            result = result.replacen(c, "", 1);
+        }
+        Wrapper(result)
+    }
+}
+
+impl SubAssign for Wrapper {
+    fn sub_assign(&mut self, other: Self) {
+        for c in other.0.chars() {
+            self.0 = self.0.replacen(c, "", 1);
+        }
+    }
+}
+
+impl Mul for Wrapper {
+    type Output = Wrapper;
+    fn mul(self, other: Self) -> Self::Output {
+        Wrapper(self.0.repeat(other.0.len()))
+    }
+}
+
+impl MulAssign for Wrapper {
+    fn mul_assign(&mut self, other: Self) {
+        self.0 = self.0.repeat(other.0.len());
+    }
+}
+
+impl<T: Into<usize>> Mul<T> for Wrapper {
+    type Output = Wrapper;
+    fn mul(self, other: T) -> Self::Output {
+        Wrapper(self.0.repeat(other.into()))
+    }
+}
+
+impl<T: Into<usize>> MulAssign<T> for Wrapper {
+    fn mul_assign(&mut self, other: T) {
+        self.0 = self.0.repeat(other.into());
+    }
+}
+
 #[cfg(test)]
 mod test {
     #[test]
