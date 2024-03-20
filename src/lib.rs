@@ -96,7 +96,7 @@ impl Neg for Wrapper {
 }
 
 fn convert_to_usize(a: isize) -> usize {
-    let a = if a < 0 { a * -1 } else { a };
+    let a = if a < 0 { -a } else { a };
     a as usize
 }
 
