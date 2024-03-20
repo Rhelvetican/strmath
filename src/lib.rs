@@ -66,17 +66,38 @@ impl MulAssign for Wrapper {
     }
 }
 
-impl<T: Into<usize>> Mul<T> for Wrapper {
+impl<T: Into<isize> + PartialOrd + Copy> Mul<T> for Wrapper {
     type Output = Wrapper;
     fn mul(self, other: T) -> Self::Output {
-        Wrapper(self.0.repeat(other.into()))
+        Wrapper(self.0.repeat(convert_to_usize(other.into())))
     }
 }
 
-impl<T: Into<usize>> MulAssign<T> for Wrapper {
+impl<T: From<i32> + Into<isize> + PartialOrd + Copy> MulAssign<T> for Wrapper {
     fn mul_assign(&mut self, other: T) {
-        self.0 = self.0.repeat(other.into());
+        if other < 0.into() {
+            self.0 = self
+                .0
+                .chars()
+                .rev()
+                .collect::<String>()
+                .repeat(convert_to_usize(other.into()));
+        } else {
+            self.0 = self.0.repeat(convert_to_usize(other.into()));
+        }
     }
+}
+
+impl Neg for Wrapper {
+    type Output = Wrapper;
+    fn neg(self) -> Self::Output {
+        Wrapper(self.0.chars().rev().collect())
+    }
+}
+
+fn convert_to_usize(a: isize) -> usize {
+    let a = if a < 0 { a * -1 } else { a };
+    a as usize
 }
 
 #[cfg(test)]
