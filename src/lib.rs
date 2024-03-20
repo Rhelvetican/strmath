@@ -276,59 +276,59 @@ mod test {
 
     #[test]
     fn create_wrapper() {
-        let w = super::Wrapper::new();
+        let w = Wrapper::new();
         assert_eq!(w.0, "".to_string());
     }
 
     #[test]
     fn create_wrapper_from_string() {
-        let w = super::Wrapper::from("hello");
+        let w = Wrapper::from("hello");
         assert_eq!(w.0, "hello".to_string());
     }
 
     #[test]
     fn add_wrapper() {
-        let w1 = super::Wrapper::from("hello ");
-        let w2 = super::Wrapper::from("world");
+        let w1 = Wrapper::from("hello ");
+        let w2 = Wrapper::from("world");
         let w3 = w1 + w2;
         assert_eq!(w3.0, "hello world".to_string());
     }
 
     #[test]
     fn add_assign_wrapper() {
-        let mut w1 = super::Wrapper::from("hello ");
-        let w2 = super::Wrapper::from("world");
+        let mut w1 = Wrapper::from("hello ");
+        let w2 = Wrapper::from("world");
         w1 += w2;
         assert_eq!(w1.0, "hello world".to_string());
     }
 
     #[test]
     fn sub_wrapper() {
-        let w1 = super::Wrapper::from("hello world");
-        let w2 = super::Wrapper::from(" world");
+        let w1 = Wrapper::from("hello world");
+        let w2 = Wrapper::from(" world");
         let w3 = w1 - w2;
         assert_eq!(w3.0, "hello".to_string());
     }
 
     #[test]
     fn sub_assign_wrapper() {
-        let mut w1 = super::Wrapper::from("hello world");
-        let w2 = super::Wrapper::from(" world");
+        let mut w1 = Wrapper::from("hello world");
+        let w2 = Wrapper::from(" world");
         w1 -= w2;
         assert_eq!(w1.0, "hello".to_string());
     }
 
     #[test]
     fn mul_wrapper() {
-        let w1 = super::Wrapper::from("hello ");
-        let w2 = super::Wrapper::from("world");
+        let w1 = Wrapper::from("hello ");
+        let w2 = Wrapper::from("world");
         let w3: Wrapper = w1 * w2; // Add type annotation to specify the output type
         assert_eq!(w3.0, "hello hello hello hello hello ".to_string());
     }
 
     #[test]
     fn mul_wrapper_with_int() {
-        let w1 = super::Wrapper::from("hello ");
+        let w1 = Wrapper::from("hello ");
         let w2: isize = 3;
         let w3: Wrapper = w1 * Into::<isize>::into(w2);
         assert_eq!(w3.0, "hello hello hello ".to_string());
@@ -336,7 +336,7 @@ mod test {
 
     #[test]
     fn mul_wrapper_with_neg_int() {
-        let w1 = super::Wrapper::from("hello ");
+        let w1 = Wrapper::from("hello ");
         let w2: isize = -5;
         let w3: Wrapper = w1 * w2;
         assert_eq!(w3.0, " olleh olleh olleh olleh olleh".to_string());
@@ -344,15 +344,15 @@ mod test {
 
     #[test]
     fn mul_assign_wrapper() {
-        let mut w1 = super::Wrapper::from("hello ");
-        let w2 = super::Wrapper::from("world");
+        let mut w1 = Wrapper::from("hello ");
+        let w2 = Wrapper::from("world");
         w1 *= w2;
         assert_eq!(w1.0, "hello hello hello hello hello ".to_string());
     }
 
     #[test]
     fn mul_assign_wrapper_with_int() {
-        let mut w1 = super::Wrapper::from("hello ");
+        let mut w1 = Wrapper::from("hello ");
         let w2: isize = 3;
         w1 *= w2;
         assert_eq!(w1.0, "hello hello hello ".to_string());
@@ -360,7 +360,7 @@ mod test {
 
     #[test]
     fn mul_assign_wrapper_with_neg_int() {
-        let mut w1 = super::Wrapper::from("hello ");
+        let mut w1 = Wrapper::from("hello ");
         let w2: isize = -5;
         w1 *= w2;
         assert_eq!(w1.0, " olleh olleh olleh olleh olleh".to_string());
@@ -368,7 +368,7 @@ mod test {
 
     #[test]
     fn div_wrapper() {
-        let w1 = super::Wrapper::from("hello world");
+        let w1 = Wrapper::from("hello world");
         let w2: char = ' ';
         let w3 = w1 / w2;
         assert_eq!(w3.0, "hello".to_string());
@@ -376,7 +376,7 @@ mod test {
 
     #[test]
     fn div_assign_wrapper() {
-        let mut w1 = super::Wrapper::from("hello world");
+        let mut w1 = Wrapper::from("hello world");
         let w2: char = ' ';
         w1 /= w2;
         assert_eq!(w1.0, "hello".to_string());
@@ -384,7 +384,7 @@ mod test {
 
     #[test]
     fn rem_wrapper() {
-        let w1 = super::Wrapper::from("hello world");
+        let w1 = Wrapper::from("hello world");
         let w2: char = ' ';
         let w3 = w1 % w2;
         assert_eq!(w3.0, "world".to_string());
@@ -392,7 +392,7 @@ mod test {
 
     #[test]
     fn rem_assign_wrapper() {
-        let mut w1 = super::Wrapper::from("hello world");
+        let mut w1 = Wrapper::from("hello world");
         let w2: char = ' ';
         w1 %= w2;
         assert_eq!(w1.0, "world".to_string());
@@ -400,14 +400,14 @@ mod test {
 
     #[test]
     fn neg_wrapper() {
-        let w1 = super::Wrapper::from("hello world");
+        let w1 = Wrapper::from("hello world");
         let w2 = -w1;
         assert_eq!(w2.0, "dlrow olleh".to_string());
     }
 
     #[test]
     fn div_wrapper_with_str() {
-        let w1 = super::Wrapper::from("hello world");
+        let w1 = Wrapper::from("hello world");
         let w2 = " ";
         let w3 = w1 / w2;
         assert_eq!(w3.0, "hello".to_string());
@@ -415,7 +415,7 @@ mod test {
 
     #[test]
     fn div_assign_wrapper_with_str() {
-        let mut w1 = super::Wrapper::from("hello world");
+        let mut w1 = Wrapper::from("hello world");
         let w2 = " ";
         w1 /= w2;
         assert_eq!(w1.0, "hello".to_string());
@@ -423,7 +423,7 @@ mod test {
 
     #[test]
     fn rem_wrapper_with_str() {
-        let w1 = super::Wrapper::from("hello world");
+        let w1 = Wrapper::from("hello world");
         let w2 = " ";
         let w3 = w1 % w2;
         assert_eq!(w3.0, "world".to_string());
@@ -431,7 +431,7 @@ mod test {
 
     #[test]
     fn rem_assign_wrapper_with_str() {
-        let mut w1 = super::Wrapper::from("hello world");
+        let mut w1 = Wrapper::from("hello world");
         let w2 = " ";
         w1 %= w2;
         assert_eq!(w1.0, "world".to_string());
