@@ -1,4 +1,5 @@
 use std::{
+    convert::From,
     fmt::{Display, Formatter, Result},
     ops::*,
 };
@@ -12,6 +13,39 @@ impl Wrapper {
     }
     pub fn from(s: &str) -> Self {
         Wrapper(s.to_string())
+    }
+    pub fn from_string(s: String) -> Self {
+        Wrapper(s)
+    }
+    pub fn to_str(&self) -> &str {
+        &self.0
+    }
+    pub fn with_capacity(capacity: usize) -> Self {
+        Wrapper(String::with_capacity(capacity))
+    }
+    pub fn capacity(&self) -> usize {
+        self.0.capacity()
+    }
+    pub fn reserve(&mut self, additional: usize) {
+        self.0.reserve(additional);
+    }
+    pub fn reserve_exact(&mut self, additional: usize) {
+        self.0.reserve_exact(additional);
+    }
+    pub fn reverse(&mut self) {
+        self.0 = self.0.chars().rev().collect();
+    }
+}
+
+impl From<&str> for Wrapper {
+    fn from(s: &str) -> Self {
+        Wrapper(s.to_string())
+    }
+}
+
+impl From<String> for Wrapper {
+    fn from(s: String) -> Self {
+        Wrapper(s)
     }
 }
 
