@@ -37,19 +37,13 @@ impl AddAssign for Wrapper {
 impl Sub for Wrapper {
     type Output = Wrapper;
     fn sub(self, other: Self) -> Self::Output {
-        let mut result = self.0;
-        for c in other.0.chars() {
-            result = result.replacen(c, "", 1);
-        }
-        Wrapper(result)
+        Wrapper(self.0.replacen(&other.0, "", 1))
     }
 }
 
 impl SubAssign for Wrapper {
     fn sub_assign(&mut self, other: Self) {
-        for c in other.0.chars() {
-            self.0 = self.0.replacen(c, "", 1);
-        }
+        self.0 = self.0.replacen(&other.0, "", 1)
     }
 }
 
@@ -112,5 +106,29 @@ mod test {
     fn create_wrapper_from_string() {
         let w = super::Wrapper::from("hello");
         assert_eq!(w.0, "hello".to_string());
+    }
+
+    #[test]
+    fn add_wrapper() {
+        let w1 = super::Wrapper::from("hello ");
+        let w2 = super::Wrapper::from("world");
+        let w3 = w1 + w2;
+        assert_eq!(w3.0, "hello world".to_string());
+    }
+
+    #[test]
+    fn add_assign_wrapper() {
+        let mut w1 = super::Wrapper::from("hello ");
+        let w2 = super::Wrapper::from("world");
+        w1 += w2;
+        assert_eq!(w1.0, "hello world".to_string());
+    }
+
+    #[test]
+    fn sub_wrapper() {
+        let w1 = super::Wrapper::from("hello world");
+        let w2 = super::Wrapper::from(" world");
+        let w3 = w1 - w2;
+        assert_eq!(w3.0, "hello".to_string());
     }
 }
