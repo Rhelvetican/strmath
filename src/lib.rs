@@ -238,6 +238,25 @@ impl RemAssign<&str> for Wrapper {
     }
 }
 
+impl Rem<String> for Wrapper {
+    type Output = Wrapper;
+    fn rem(self, other: String) -> Self::Output {
+        Wrapper(match self.0.rfind(other.as_str()) {
+            Some(i) => self.0[bump(i)..].to_string(),
+            None => self.0.clone(),
+        })
+    }
+}
+
+impl RemAssign<String> for Wrapper {
+    fn rem_assign(&mut self, other: String) {
+        match self.0.rfind(other.as_str()) {
+            Some(i) => self.0 = self.0[bump(i)..].to_string(),
+            None => self.0 = self.0.clone(),
+        }
+    }
+}
+
 // Hacky fixes for stuffs
 fn convert_to_usize(a: isize) -> usize {
     let a = if a < 0 { -a } else { a };
