@@ -54,31 +54,59 @@ impl Mul for Wrapper {
     }
 }
 
-impl MulAssign for Wrapper {
-    fn mul_assign(&mut self, other: Self) {
-        self.0 = self.0.repeat(other.0.len());
-    }
-}
-
-impl<T: Into<isize> + PartialOrd + Copy> Mul<T> for Wrapper {
+impl Mul<isize> for Wrapper {
     type Output = Wrapper;
-    fn mul(self, other: T) -> Self::Output {
-        Wrapper(self.0.repeat(convert_to_usize(other.into())))
+    fn mul(self, other: isize) -> Self::Output {
+        if other < 0 {
+            Wrapper(
+                self.0
+                    .chars()
+                    .rev()
+                    .collect::<String>()
+                    .repeat(convert_to_usize(other)),
+            )
+        } else {
+            Wrapper(self.0.repeat(convert_to_usize(other)))
+        }
     }
 }
 
-impl<T: From<i32> + Into<isize> + PartialOrd + Copy> MulAssign<T> for Wrapper {
-    fn mul_assign(&mut self, other: T) {
-        if other < 0.into() {
+impl MulAssign<isize> for Wrapper {
+    fn mul_assign(&mut self, other: isize) {
+        if other < 0 {
             self.0 = self
                 .0
                 .chars()
                 .rev()
                 .collect::<String>()
-                .repeat(convert_to_usize(other.into()));
+                .repeat(convert_to_usize(other));
         } else {
-            self.0 = self.0.repeat(convert_to_usize(other.into()));
+            self.0 = self.0.repeat(convert_to_usize(other));
         }
+    }
+}
+
+impl Mul<Wrapper> for isize {
+    type Output = Wrapper;
+    fn mul(self, other: Wrapper) -> Self::Output {
+        if self < 0 {
+            Wrapper(
+                other
+                    .0
+                    .chars()
+                    .rev()
+                    .collect::<String>()
+                    .repeat(convert_to_usize(self)),
+            )
+        } else {
+            Wrapper(other.0.repeat(convert_to_usize(self)))
+        }
+    }
+}
+
+impl MulAssign for Wrapper {
+    fn mul_assign(&mut self, other: Self) {
+        self.0 = self.0.repeat(other.0.len());
     }
 }
 
@@ -89,6 +117,7 @@ impl Neg for Wrapper {
     }
 }
 
+// Hacky fixes for stuffs
 fn convert_to_usize(a: isize) -> usize {
     let a = if a < 0 { -a } else { a };
     a as usize
@@ -96,6 +125,8 @@ fn convert_to_usize(a: isize) -> usize {
 
 #[cfg(test)]
 mod test {
+    use crate::Wrapper;
+
     #[test]
     fn create_wrapper() {
         let w = super::Wrapper::new();
@@ -130,5 +161,37 @@ mod test {
         let w2 = super::Wrapper::from(" world");
         let w3 = w1 - w2;
         assert_eq!(w3.0, "hello".to_string());
+    }
+
+    #[test]
+    fn sub_assign_wrapper() {
+        let mut w1 = super::Wrapper::from("hello world");
+        let w2 = super::Wrapper::from(" world");
+        w1 -= w2;
+        assert_eq!(w1.0, "hello".to_string());
+    }
+
+    #[test]
+    fn mul_wrapper() {
+        let w1 = super::Wrapper::from("hello ");
+        let w2 = super::Wrapper::from("world");
+        let w3: Wrapper = w1 * w2; // Add type annotation to specify the output type
+        assert_eq!(w3.0, "hello hello hello hello hello ".to_string());
+    }
+
+    #[test]
+    fn mul_wrapper_with_int() {
+        let w1 = super::Wrapper::from("hello ");
+        let w2: isize = 3;
+        let w3: Wrapper = w1 * Into::<isize>::into(w2);
+        assert_eq!(w3.0, "hello hello hello ".to_string());
+    }
+
+    #[test]
+    fn mul_wrapper_with_neg_int() {
+        let w1 = super::Wrapper::from("hello ");
+        let w2: isize = -5;
+        let w3: Wrapper = w1 * w2;
+        assert_eq!(w3.0, " olleh olleh olleh olleh olleh".to_string());
     }
 }
