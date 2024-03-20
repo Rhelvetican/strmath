@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 use std::{
     convert::From,
     fmt::{Display, Formatter, Result},
@@ -9,6 +7,7 @@ use std::{
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) struct Wrapper(String);
 
+#[allow(dead_code)]
 impl Wrapper {
     pub fn new() -> Self {
         Wrapper("".to_string())
