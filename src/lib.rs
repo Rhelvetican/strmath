@@ -4,7 +4,7 @@ use std::{
     ops::*,
 };
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub(crate) struct Wrapper(String);
 
 #[allow(dead_code)]
@@ -51,6 +51,13 @@ impl From<String> for Wrapper {
     fn from(s: String) -> Self {
         Wrapper(s)
     }
+}
+unsafe impl Send for Wrapper {
+    // This is safe because Wrapper is not a reference type
+}
+
+unsafe impl Sync for Wrapper {
+    // This is safe because Wrapper is not a reference type
 }
 
 impl Display for Wrapper {
