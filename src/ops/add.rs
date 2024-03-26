@@ -13,3 +13,29 @@ impl AddAssign for Str {
         self.0 += &other.0;
     }
 }
+
+impl Add<&str> for Str {
+    type Output = Str;
+    fn add(self, other: &str) -> Self::Output {
+        Str(self.0 + other)
+    }
+}
+
+impl AddAssign<&str> for Str {
+    fn add_assign(&mut self, other: &str) {
+        self.0 += other;
+    }
+}
+
+impl Add<String> for Str {
+    type Output = Str;
+    fn add(self, other: String) -> Self::Output {
+        Str(self.0 + &other)
+    }
+}
+
+impl AddAssign<String> for Str {
+    fn add_assign(&mut self, other: String) {
+        self.0 += &other;
+    }
+}
