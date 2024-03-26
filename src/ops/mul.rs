@@ -12,14 +12,9 @@ impl Mul<isize> for Str {
     type Output = Str;
     fn mul(self, other: isize) -> Self::Output {
         if other < 0 {
-            Str(self
-                .0
-                .chars()
-                .rev()
-                .collect::<String>()
-                .repeat(convert_to_usize(other)))
+            Str(self.0.chars().rev().collect::<String>().repeat(abs(other)))
         } else {
-            Str(self.0.repeat(convert_to_usize(other)))
+            Str(self.0.repeat(abs(other)))
         }
     }
 }
@@ -27,14 +22,9 @@ impl Mul<isize> for Str {
 impl MulAssign<isize> for Str {
     fn mul_assign(&mut self, other: isize) {
         if other < 0 {
-            self.0 = self
-                .0
-                .chars()
-                .rev()
-                .collect::<String>()
-                .repeat(convert_to_usize(other));
+            self.0 = self.0.chars().rev().collect::<String>().repeat(abs(other));
         } else {
-            self.0 = self.0.repeat(convert_to_usize(other));
+            self.0 = self.0.repeat(abs(other));
         }
     }
 }
@@ -43,14 +33,9 @@ impl Mul<Str> for isize {
     type Output = Str;
     fn mul(self, other: Str) -> Self::Output {
         if self < 0 {
-            Str(other
-                .0
-                .chars()
-                .rev()
-                .collect::<String>()
-                .repeat(convert_to_usize(self)))
+            Str(other.0.chars().rev().collect::<String>().repeat(abs(self)))
         } else {
-            Str(other.0.repeat(convert_to_usize(self)))
+            Str(other.0.repeat(abs(self)))
         }
     }
 }
@@ -61,7 +46,7 @@ impl MulAssign for Str {
     }
 }
 
-fn convert_to_usize(a: isize) -> usize {
+fn abs(a: isize) -> usize {
     let a = if a < 0 { -a } else { a };
     a as usize
 }
