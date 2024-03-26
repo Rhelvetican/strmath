@@ -1,5 +1,4 @@
 pub mod fmt;
-pub mod from;
 pub mod imp;
 pub mod ops;
 
