@@ -1,7 +1,7 @@
 [package]
 name = "strmath"
 description = "Do math with your strings."
-keywords = ["string", "weird", "math", "zero-dependencies"]
+keywords = ["string", "strmath"]
 authors = ["Rhelvetican <bionicvnb@gmail.com>"]
 readme = "README.md"
 license = "MIT"
