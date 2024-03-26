@@ -5,7 +5,7 @@ keywords = ["string", "weird", "math", "zero-dependencies"]
 authors = ["Rhelvetican <bionicvnb@gmail.com>"]
 readme = "README.md"
 license = "MIT"
-version = "0.3.1"
+version = "0.4.0"
 edition = "2021"
 repository = "https://github.com/Rhelvetican/strmath"
 homepage = "https://github.com/Rhelvetican/strmath"
@@ -13,3 +13,11 @@ homepage = "https://github.com/Rhelvetican/strmath"
 [lib]
 name = "strmath"
 path = "src/lib.rs"
+
+[features]
+add = []
+sub = []
+mul = []
+div = []
+rem = []
+full = ["add", "sub", "mul", "div", "rem"]
