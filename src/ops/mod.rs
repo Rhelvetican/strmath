@@ -1,15 +1,15 @@
 //! # Operations
 //! Available operations for `Str` type are:
-//! * Add (+)
-//! * AddAssign (+=)
-//! * Sub (-)
-//! * SubAssign (-=)
-//! * Mul (*)
-//! * MulAssign (*=)
-//! * Div (/)
-//! * DivAssign (/=)
-//! * Rem (%)
-//! * RemAssign (%=)
+//! * Add (`+`)
+//! * AddAssign (`+=`)
+//! * Sub (`-`)
+//! * SubAssign (`-=`)
+//! * Mul (`*`)
+//! * MulAssign (`*=`)
+//! * Div (`/`)
+//! * DivAssign (`/=`)
+//! * Rem (`%`)
+//! * RemAssign (`%=`)
 //!
 //! [add]: crate::ops::add
 //! [sub]: crate::ops::sub
@@ -17,7 +17,9 @@
 //! [div]: crate::ops::div
 //! [rem]: crate::ops::rem
 //!
-//! ## Add
+//! ## Addition functions
+//! For detailed information on addition functions, refer to the [_add_][add] module.
+//! ### Add
 //! The `Add` trait is used to add a string to another string or anything that implements the trait `Display`.
 //! ```rust
 //! use strmath::Str;
@@ -25,6 +27,103 @@
 //! let x = Str::from("World!");
 //! let y = s + x;
 //! println!("{}", y.to_str());
+//! ```
+//!
+//! ### AddAssign
+//! The `AddAssign` trait is used to add a string to another string.
+//! ```rust
+//! use strmath::Str;
+//! let mut s = Str::from("Hello, ");
+//! let x = Str::from("World!");
+//! s += x;
+//! println!("{}", s.to_str());
+//! ```
+//!
+//! ## Subtraction functions
+//! For detailed information on subtraction functions, refer to the [_sub_][sub] module.
+//! ### Sub
+//! The `Sub` trait is used to subtract a string from another string.
+//! ```rust
+//! use strmath::Str;
+//! let s = Str::from("Hello, World!");
+//! let x = Str::from("World!");
+//! let y = s - x;
+//! println!("{}", y.to_str());
+//! ```
+//!
+//! ### SubAssign
+//! The `SubAssign` trait is used to subtract a string from another string.
+//! ```rust
+//! use strmath::Str;
+//! let mut s = Str::from("Hello, World!");
+//! let x = Str::from("World!");
+//! s -= x;
+//! println!("{}", s.to_str());
+//! ```
+//!
+//! ## Multiplication functions
+//! For detailed information on multiplication functions, refer to the [_mul_][mul] module.
+//! ### Mul
+//! The `Mul` trait is used to multiply a string with another string/chars.
+//! ```rust
+//! use strmath::Str;
+//! let s = Str::from("Hi ");
+//! let x = 7;
+//! let y = s * x;
+//! println!("{}", y.to_str());
+//! ```
+//! ### MulAssign
+//! The `MulAssign` trait is used to multiply a string with another string/chars.
+//! ```rust
+//! use strmath::Str;
+//! let mut s = Str::from("Hi ");
+//! let x = 7;
+//! s *= x;
+//! println!("{}", s.to_str());
+//! ```
+//!
+//! ## Division functions
+//! For detailed information on division functions, refer to the [_div_][div] module.
+//! ### Div
+//! The `Div` trait is used to split a string at the first matching point, then return the first part.
+//! ```rust
+//! use strmath::Str;
+//! let s = Str::from("Hello, World!");
+//! let x = ",";
+//! let y = s / x;
+//! println!("{}", y.to_str());
+//! ```
+//!
+//! ### DivAssign
+//! The `DivAssign` trait is used to split a string at the first matching point, then return the first part.
+//! ```rust
+//! use strmath::Str;
+//! let mut s = Str::from("Hello, World!");
+//! let x = ",";
+//! s /= x;
+//! println!("{}", s.to_str());
+//! ```
+//!
+//! ## Remainder functions
+//! For detailed information on remainder functions, refer to the [_rem_][rem] module.
+//! ### Rem
+//! The `Rem` trait is used to split a string at the first matching point, then return the second part.
+//! ```rust
+//! use strmath::Str;
+//! let s = Str::from("Hello, World!");
+//! let x = ",";
+//! let y = s % x;
+//! println!("{}", y.to_str());
+//! ```
+//!
+//! ### RemAssign
+//! The `RemAssign` trait is used to split a string at the first matching point, then return the second part.
+//! ```rust
+//! use strmath::Str;
+//! let mut s = Str::from("Hello, World!");
+//! let x = ",";
+//! s %= x;
+//! println!("{}", s.to_str());
 //! ```
 
 #[cfg(feature = "add")]
