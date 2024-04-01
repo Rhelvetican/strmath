@@ -1,16 +1,13 @@
 use crate::Str;
-use std::str::Chars;
+use std::{fmt::Display, str::Chars};
 
 #[allow(dead_code)]
 impl Str {
     pub fn new() -> Self {
         Str("".to_string())
     }
-    pub fn from(s: &str) -> Self {
+    pub fn from<T: Display>(s: T) -> Self {
         Str(s.to_string())
-    }
-    pub fn from_string(s: String) -> Self {
-        Str(s)
     }
     pub fn to_str(&self) -> &str {
         &self.0
