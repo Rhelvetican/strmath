@@ -32,6 +32,15 @@ pub mod test_module {
         assert_eq!(w1.0, "hello world".to_string());
     }
 
+    #[cfg(feature = "add")]
+    #[test]
+    fn add_i32() {
+        let w1 = Str::from("hello ");
+        let w2 = 3;
+        let w3 = w1 + w2;
+        assert_eq!(w3.0, "hello 3".to_string());
+    }
+
     #[cfg(feature = "sub")]
     #[test]
     fn sub_str() {
