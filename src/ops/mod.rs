@@ -23,7 +23,9 @@
 //! use strmath::Str;
 //! let s = Str::from("Hello, ");
 //! let x = Str::from("World!");
-//!
+//! let y = s + x;
+//! println!("{}", y.to_str());
+//! ```
 
 #[cfg(feature = "add")]
 pub mod add;

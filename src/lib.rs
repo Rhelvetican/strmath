@@ -19,7 +19,7 @@
 //! It is *just* a simple wrapper around the String struct.
 //! ```rust
 //! use strmath::Str;
-//! let s = Str::new("Hello, ");
+//! let s = Str::from("Hello, ");
 //! let x = Str::from("World!");
 //! let y = s + x;
 //! ```
@@ -37,6 +37,12 @@
 //! * DivAssign
 //! * Rem
 //! * RemAssign
+//!
+//! ## Implementations
+//! The module that holds the implementations. Refer to the [_imp_][imp] module for more information.
+//!
+//! ## Formatting
+//! The module that holds the formatting functions. Refer to the [_fmt_][fmt] module for more information.
 
 pub mod fmt;
 pub mod imp;
