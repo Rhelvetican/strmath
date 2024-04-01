@@ -25,7 +25,7 @@
 //! ```
 //!
 //! ## Ops
-//! The module that holds the operations. Refer to the [ops] module for more information.
+//! The module that holds the operations. Refer to the [_ops_][ops] module for more information.
 //! It contains the following operations:
 //! * Add
 //! * AddAssign
