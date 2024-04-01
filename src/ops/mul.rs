@@ -1,6 +1,9 @@
+//! Multiplication functions
+
 use crate::Str;
 use std::ops::{Mul, MulAssign};
 
+/// Multiplies the `Str` by another `Str`.
 impl Mul for Str {
     type Output = Str;
     fn mul(self, other: Self) -> Self::Output {
@@ -8,6 +11,7 @@ impl Mul for Str {
     }
 }
 
+/// Multiplies the `Str` by an `isize`.
 impl Mul<isize> for Str {
     type Output = Str;
     fn mul(self, other: isize) -> Self::Output {
@@ -19,6 +23,7 @@ impl Mul<isize> for Str {
     }
 }
 
+/// Multiplies the `Str` by an `isize`.
 impl MulAssign<isize> for Str {
     fn mul_assign(&mut self, other: isize) {
         if other < 0 {
@@ -29,6 +34,7 @@ impl MulAssign<isize> for Str {
     }
 }
 
+/// Multiplies an `isize` by a `Str`.
 impl Mul<Str> for isize {
     type Output = Str;
     fn mul(self, other: Str) -> Self::Output {
@@ -40,12 +46,14 @@ impl Mul<Str> for isize {
     }
 }
 
+/// Multiplies an `Str` by a `Str`.
 impl MulAssign for Str {
     fn mul_assign(&mut self, other: Self) {
         self.0 = self.0.repeat(other.0.len());
     }
 }
 
+/// Hacky absolute value function.
 fn abs(a: isize) -> usize {
     let a = if a < 0 { -a } else { a };
     a as usize

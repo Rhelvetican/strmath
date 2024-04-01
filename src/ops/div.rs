@@ -1,6 +1,9 @@
+//! # Division functions
+
 use crate::Str;
 use std::ops::{Div, DivAssign};
 
+/// Divides the `Str` by another `Str`.
 impl Div<Str> for Str {
     type Output = Str;
     fn div(self, other: Str) -> Self::Output {
@@ -11,6 +14,7 @@ impl Div<Str> for Str {
     }
 }
 
+/// Divides the `Str` by another `Str`.
 impl DivAssign<Str> for Str {
     fn div_assign(&mut self, other: Str) {
         match self.0.find(&other.0) {
@@ -20,6 +24,7 @@ impl DivAssign<Str> for Str {
     }
 }
 
+/// Divides the `Str` by a `char`.
 impl Div<char> for Str {
     type Output = Str;
     fn div(self, other: char) -> Self::Output {
@@ -30,6 +35,7 @@ impl Div<char> for Str {
     }
 }
 
+/// Divides the `Str` by a `char`.
 impl DivAssign<char> for Str {
     fn div_assign(&mut self, other: char) {
         match self.0.find(other) {
@@ -39,6 +45,7 @@ impl DivAssign<char> for Str {
     }
 }
 
+/// Divides the `Str` by a `&str`.
 impl Div<&str> for Str {
     type Output = Str;
     fn div(self, other: &str) -> Self::Output {
@@ -49,6 +56,7 @@ impl Div<&str> for Str {
     }
 }
 
+/// Divides the `Str` by a `&str`.
 impl DivAssign<&str> for Str {
     fn div_assign(&mut self, other: &str) {
         match self.0.find(other) {
