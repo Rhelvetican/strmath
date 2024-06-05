@@ -44,12 +44,16 @@
 //! ## Formatting
 //! The module that holds the formatting functions. Refer to the [_fmt_][fmt] module for more information.
 
+use std::string::String as StdString;
+
 pub mod fmt;
-pub mod imp;
+pub mod r#impl;
 pub mod ops;
 
 #[cfg(test)]
 mod test;
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub struct Str(String);
+pub struct Str(StdString);
+
+pub type String = Str;

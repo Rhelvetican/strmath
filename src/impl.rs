@@ -45,4 +45,23 @@ impl Str {
     pub fn chars(&self) -> Chars<'_> {
         self.0.chars()
     }
+    /// Returns the length of the `Str`.
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+    /// Returns `true` if the `Str` is empty. Otherwise, returns `false`.
+    /// This is equivalent to `self.len() == 0`.
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
+    /// Truncates the `Str` to the specified length.
+    /// If `new_len` is greater than the current length, this has no effect.
+    pub fn truncate(&mut self, new_len: usize) {
+        self.0.truncate(new_len);
+    }
+    /// Removes the last character from the `Str` and returns it.
+    /// Returns `None` if the `Str` is empty.
+    pub fn pop(&mut self) -> Option<char> {
+        self.0.pop()
+    }
 }
