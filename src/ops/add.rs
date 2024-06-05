@@ -1,5 +1,4 @@
 //! # Addition functions
-
 use crate::Str;
 use std::{
     fmt::Display,

@@ -9,7 +9,7 @@ impl Rem<char> for Str {
     fn rem(self, other: char) -> Self::Output {
         Str(match self.0.rfind(other) {
             Some(i) => self.0[bump(i)..].to_string(),
-            None => self.0.clone(),
+            None => self.0,
         })
     }
 }
@@ -17,9 +17,8 @@ impl Rem<char> for Str {
 /// Remains of the `Str` by a `char`.
 impl RemAssign<char> for Str {
     fn rem_assign(&mut self, other: char) {
-        match self.0.rfind(other) {
-            Some(i) => self.0 = self.0[bump(i)..].to_string(),
-            None => self.0 = self.0.clone(),
+        if let Some(i) = self.0.rfind(other) {
+            self.0 = self.0[bump(i)..].to_string()
         }
     }
 }
@@ -30,7 +29,7 @@ impl Rem<&str> for Str {
     fn rem(self, other: &str) -> Self::Output {
         Str(match self.0.rfind(other) {
             Some(i) => self.0[bump(i)..].to_string(),
-            None => self.0.clone(),
+            None => self.0,
         })
     }
 }
@@ -38,9 +37,8 @@ impl Rem<&str> for Str {
 /// Remains of the `Str` by a `&str`.
 impl RemAssign<&str> for Str {
     fn rem_assign(&mut self, other: &str) {
-        match self.0.rfind(other) {
-            Some(i) => self.0 = self.0[bump(i)..].to_string(),
-            None => self.0 = self.0.clone(),
+        if let Some(i) = self.0.rfind(other) {
+            self.0 = self.0[bump(i)..].to_string()
         }
     }
 }
@@ -51,7 +49,7 @@ impl Rem<String> for Str {
     fn rem(self, other: String) -> Self::Output {
         Str(match self.0.rfind(other.as_str()) {
             Some(i) => self.0[bump(i)..].to_string(),
-            None => self.0.clone(),
+            None => self.0,
         })
     }
 }
@@ -59,9 +57,8 @@ impl Rem<String> for Str {
 /// Remains of the `Str` by a `String`.
 impl RemAssign<String> for Str {
     fn rem_assign(&mut self, other: String) {
-        match self.0.rfind(other.as_str()) {
-            Some(i) => self.0 = self.0[bump(i)..].to_string(),
-            None => self.0 = self.0.clone(),
+        if let Some(i) = self.0.rfind(other.as_str()) {
+            self.0 = self.0[bump(i)..].to_string()
         }
     }
 }

@@ -15,10 +15,10 @@ impl Mul for Str {
 impl Mul<isize> for Str {
     type Output = Str;
     fn mul(self, other: isize) -> Self::Output {
-        if other < 0 {
-            Str(self.0.chars().rev().collect::<String>().repeat(abs(other)))
-        } else {
-            Str(self.0.repeat(abs(other)))
+        match other {
+            0 => Str::new(),
+            ..=0 => Str(self.0.chars().rev().collect::<String>().repeat(abs(other))),
+            1.. => Str(self.0.repeat(abs(other))),
         }
     }
 }
@@ -26,11 +26,11 @@ impl Mul<isize> for Str {
 /// Multiplies the `Str` by an `isize`.
 impl MulAssign<isize> for Str {
     fn mul_assign(&mut self, other: isize) {
-        if other < 0 {
-            self.0 = self.0.chars().rev().collect::<String>().repeat(abs(other));
-        } else {
-            self.0 = self.0.repeat(abs(other));
-        }
+        match other {
+            0 => self.0 = String::new(),
+            ..=0 => self.0 = self.0.chars().rev().collect::<String>().repeat(abs(other)),
+            1.. => self.0 = self.0.repeat(abs(other)),
+        };
     }
 }
 
@@ -38,10 +38,10 @@ impl MulAssign<isize> for Str {
 impl Mul<Str> for isize {
     type Output = Str;
     fn mul(self, other: Str) -> Self::Output {
-        if self < 0 {
-            Str(other.0.chars().rev().collect::<String>().repeat(abs(self)))
-        } else {
-            Str(other.0.repeat(abs(self)))
+        match self {
+            0 => Str::new(),
+            ..=0 => Str(other.0.chars().rev().collect::<String>().repeat(abs(self))),
+            1.. => Str(other.0.repeat(abs(self))),
         }
     }
 }
