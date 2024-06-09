@@ -46,14 +46,18 @@
 
 use std::string::String as StdString;
 
-pub mod fmt;
-pub mod r#impl;
-pub mod ops;
+mod fmt;
+mod r#impl;
+mod ops;
 
 #[cfg(test)]
 mod test;
 
-#[derive(Debug, Clone, PartialEq, Default)]
+#[derive(Debug, Clone, PartialEq, Default, Eq, Hash)]
 pub struct Str(StdString);
 
 pub type String = Str;
+
+pub mod prelude {
+    pub use crate::String;
+}

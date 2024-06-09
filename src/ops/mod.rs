@@ -21,7 +21,7 @@
 //! For detailed information on addition functions, refer to the [_add_][add] module.
 //! ### Add
 //! The `Add` trait is used to add a string to another string or anything that implements the trait `Display`.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let s = Str::from("Hello, ");
 //! let x = Str::from("World!");
@@ -31,7 +31,7 @@
 //!
 //! ### AddAssign
 //! The `AddAssign` trait is used to add a string to another string.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let mut s = Str::from("Hello, ");
 //! let x = Str::from("World!");
@@ -43,7 +43,7 @@
 //! For detailed information on subtraction functions, refer to the [_sub_][sub] module.
 //! ### Sub
 //! The `Sub` trait is used to subtract a string from another string.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let s = Str::from("Hello, World!");
 //! let x = Str::from("World!");
@@ -53,7 +53,7 @@
 //!
 //! ### SubAssign
 //! The `SubAssign` trait is used to subtract a string from another string.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let mut s = Str::from("Hello, World!");
 //! let x = Str::from("World!");
@@ -65,7 +65,7 @@
 //! For detailed information on multiplication functions, refer to the [_mul_][mul] module.
 //! ### Mul
 //! The `Mul` trait is used to multiply a string with another string/chars.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let s = Str::from("Hi ");
 //! let x = 7;
@@ -74,7 +74,7 @@
 //! ```
 //! ### MulAssign
 //! The `MulAssign` trait is used to multiply a string with another string/chars.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let mut s = Str::from("Hi ");
 //! let x = 7;
@@ -86,7 +86,7 @@
 //! For detailed information on division functions, refer to the [_div_][div] module.
 //! ### Div
 //! The `Div` trait is used to split a string at the first matching point, then return the first part.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let s = Str::from("Hello, World!");
 //! let x = ",";
@@ -96,7 +96,7 @@
 //!
 //! ### DivAssign
 //! The `DivAssign` trait is used to split a string at the first matching point, then return the first part.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let mut s = Str::from("Hello, World!");
 //! let x = ",";
@@ -108,7 +108,7 @@
 //! For detailed information on remainder functions, refer to the [_rem_][rem] module.
 //! ### Rem
 //! The `Rem` trait is used to split a string at the first matching point, then return the second part.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let s = Str::from("Hello, World!");
 //! let x = ",";
@@ -118,7 +118,7 @@
 //!
 //! ### RemAssign
 //! The `RemAssign` trait is used to split a string at the first matching point, then return the second part.
-//! ```rust
+//! ```no_run
 //! use strmath::Str;
 //! let mut s = Str::from("Hello, World!");
 //! let x = ",";

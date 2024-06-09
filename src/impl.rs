@@ -1,13 +1,12 @@
 //! This module contains the implementations of the `Str` struct.
 
 use crate::Str;
-use std::{fmt::Display, str::Chars};
+use std::{fmt::Display, ops::Deref, str::Chars, string::FromUtf8Error};
 
-#[allow(dead_code)]
 impl Str {
     /// Creates a new empty `Str`.
     pub fn new() -> Self {
-        Str("".to_string())
+        Str(String::new())
     }
     /// Creates a new `Str` from any types that implements the `Display` trait.
     pub fn from<T: Display>(s: T) -> Self {
@@ -63,5 +62,36 @@ impl Str {
     /// Returns `None` if the `Str` is empty.
     pub fn pop(&mut self) -> Option<char> {
         self.0.pop()
+    }
+    /// Truncates this `Str`, removing all contents.
+    /// While this means the `Str` will have a length of zero, it does not touch its capacity.
+    pub fn clear(&mut self) {
+        self.0.clear();
+    }
+    pub fn from_utf8<T: AsRef<[u8]>>(v: T) -> Result<Self, FromUtf8Error> {
+        match String::from_utf8(v.as_ref().to_vec()) {
+            Ok(s) => Ok(Str(s)),
+            Err(e) => Err(e),
+        }
+    }
+}
+
+impl AsRef<str> for Str {
+    fn as_ref(&self) -> &str {
+        &self.0
+    }
+}
+
+impl Deref for Str {
+    type Target = str;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl From<&str> for Str {
+    fn from(s: &str) -> Self {
+        Str(s.to_string())
     }
 }
