@@ -63,6 +63,25 @@ impl RemAssign<String> for Str {
     }
 }
 
+/// Remains of the `Str` by a `Str`.
+impl Rem<Str> for Str {
+    type Output = Str;
+    fn rem(self, other: Str) -> Self::Output {
+        Str(match self.0.rfind(other.0.as_str()) {
+            Some(i) => self.0[bump(i)..].to_string(),
+            None => self.0,
+        })
+    }
+}
+
+impl RemAssign<Str> for Str {
+    fn rem_assign(&mut self, other: Str) {
+        if let Some(i) = self.0.rfind(other.0.as_str()) {
+            self.0 = self.0[bump(i)..].to_string()
+        }
+    }
+}
+
 /// Weird hacky code to bump the index.
 fn bump<T>(a: T) -> T
 where
