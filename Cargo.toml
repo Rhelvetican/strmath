@@ -15,12 +15,3 @@ name = "strmath"
 path = "src/lib.rs"
 
 [features]
-add = []
-sub = []
-mul = []
-div = []
-rem = []
-display = []
-
-math = ["add", "sub", "mul", "div", "rem"]
-full = ["math", "display"]

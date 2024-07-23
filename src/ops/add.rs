@@ -1,5 +1,5 @@
 //! # Addition functions
-use crate::Str;
+use crate::mathstr::Str;
 use std::{
     fmt::Display,
     ops::{Add, AddAssign},
@@ -8,6 +8,7 @@ use std::{
 /// Adds any type that implements the `Display` trait to the `Str`.
 impl<T: Display> Add<T> for Str {
     type Output = Str;
+
     fn add(self, other: T) -> Self::Output {
         Str(self.0 + &other.to_string())
     }

@@ -14,7 +14,6 @@ pub mod test_module {
         assert_eq!(w.0, "hello".to_string());
     }
 
-    #[cfg(feature = "add")]
     #[test]
     fn add_str() {
         let w1 = Str::from("hello ");
@@ -23,7 +22,6 @@ pub mod test_module {
         assert_eq!(w3.0, "hello world".to_string());
     }
 
-    #[cfg(feature = "add")]
     #[test]
     fn add_assign_str() {
         let mut w1 = Str::from("hello ");
@@ -32,7 +30,6 @@ pub mod test_module {
         assert_eq!(w1.0, "hello world".to_string());
     }
 
-    #[cfg(feature = "add")]
     #[test]
     fn add_i32() {
         let w1 = Str::from("hello ");
@@ -41,7 +38,6 @@ pub mod test_module {
         assert_eq!(w3.0, "hello 3".to_string());
     }
 
-    #[cfg(feature = "sub")]
     #[test]
     fn sub_str() {
         let w1 = Str::from("hello world");
@@ -50,7 +46,6 @@ pub mod test_module {
         assert_eq!(w3.0, "hello".to_string());
     }
 
-    #[cfg(feature = "sub")]
     #[test]
     fn sub_assign_str() {
         let mut w1 = Str::from("hello world");
@@ -59,7 +54,6 @@ pub mod test_module {
         assert_eq!(w1.0, "hello".to_string());
     }
 
-    #[cfg(feature = "mul")]
     #[test]
     fn mul_str() {
         let w1 = Str::from("hello ");
@@ -68,7 +62,6 @@ pub mod test_module {
         assert_eq!(w3.0, "hello hello hello hello hello ".to_string());
     }
 
-    #[cfg(feature = "mul")]
     #[test]
     fn mul_str_with_int() {
         let w1 = Str::from("hello ");
@@ -77,7 +70,6 @@ pub mod test_module {
         assert_eq!(w3.0, "hello hello hello ".to_string());
     }
 
-    #[cfg(feature = "mul")]
     #[test]
     fn mul_str_with_neg_int() {
         let w1 = Str::from("hello ");
@@ -86,7 +78,6 @@ pub mod test_module {
         assert_eq!(w3.0, " olleh olleh olleh olleh olleh".to_string());
     }
 
-    #[cfg(feature = "mul")]
     #[test]
     fn mul_assign_str() {
         let mut w1 = Str::from("hello ");
@@ -95,7 +86,6 @@ pub mod test_module {
         assert_eq!(w1.0, "hello hello hello hello hello ".to_string());
     }
 
-    #[cfg(feature = "mul")]
     #[test]
     fn mul_assign_str_with_int() {
         let mut w1 = Str::from("hello ");
@@ -104,7 +94,6 @@ pub mod test_module {
         assert_eq!(w1.0, "hello hello hello ".to_string());
     }
 
-    #[cfg(feature = "mul")]
     #[test]
     fn mul_assign_str_with_neg_int() {
         let mut w1 = Str::from("hello ");
@@ -113,7 +102,6 @@ pub mod test_module {
         assert_eq!(w1.0, " olleh olleh olleh olleh olleh".to_string());
     }
 
-    #[cfg(feature = "div")]
     #[test]
     fn div() {
         let w1 = Str::from("hello world");
@@ -122,7 +110,6 @@ pub mod test_module {
         assert_eq!(w3.0, "hello".to_string());
     }
 
-    #[cfg(feature = "div")]
     #[test]
     fn div_assign() {
         let mut w1 = Str::from("hello world");
@@ -131,7 +118,6 @@ pub mod test_module {
         assert_eq!(w1.0, "hello".to_string());
     }
 
-    #[cfg(feature = "div")]
     #[test]
     fn div_char() {
         let w1 = Str::from("hello world");
@@ -140,7 +126,6 @@ pub mod test_module {
         assert_eq!(w3.0, "hello".to_string());
     }
 
-    #[cfg(feature = "div")]
     #[test]
     fn div_assign_char() {
         let mut w1 = Str::from("hello world");
@@ -149,7 +134,6 @@ pub mod test_module {
         assert_eq!(w1.0, "hello".to_string());
     }
 
-    #[cfg(feature = "rem")]
     #[test]
     fn rem_str() {
         let w1 = Str::from("hello world");
@@ -158,7 +142,6 @@ pub mod test_module {
         assert_eq!(w3.0, "world".to_string());
     }
 
-    #[cfg(feature = "rem")]
     #[test]
     fn rem_assign_str() {
         let mut w1 = Str::from("hello world");
@@ -174,7 +157,6 @@ pub mod test_module {
         assert_eq!(w2.0, "dlrow olleh".to_string());
     }
 
-    #[cfg(feature = "div")]
     #[test]
     fn div_str_with_str() {
         let w1 = Str::from("hello world");
@@ -183,7 +165,6 @@ pub mod test_module {
         assert_eq!(w3.0, "hello".to_string());
     }
 
-    #[cfg(feature = "div")]
     #[test]
     fn div_assign_str_with_str() {
         let mut w1 = Str::from("hello world");
@@ -192,7 +173,6 @@ pub mod test_module {
         assert_eq!(w1.0, "hello".to_string());
     }
 
-    #[cfg(feature = "rem")]
     #[test]
     fn rem_str_with_str() {
         let w1 = Str::from("hello world");
@@ -201,7 +181,6 @@ pub mod test_module {
         assert_eq!(w3.0, "world".to_string());
     }
 
-    #[cfg(feature = "rem")]
     #[test]
     fn rem_assign_str_with_str() {
         let mut w1 = Str::from("hello world");

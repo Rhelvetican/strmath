@@ -1,6 +1,6 @@
 //! Multiplication functions
 
-use crate::Str;
+use crate::mathstr::Str;
 use std::ops::{Mul, MulAssign};
 
 /// Multiplies the `Str` by another `Str`.

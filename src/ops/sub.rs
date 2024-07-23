@@ -1,6 +1,6 @@
 //! Substraction functions
 
-use crate::Str;
+use crate::mathstr::Str;
 use std::ops::{Sub, SubAssign};
 
 /// Substracts the `Str` by another `Str`.

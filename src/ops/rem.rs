@@ -1,6 +1,6 @@
 //! Remainder functions
 
-use crate::Str;
+use crate::mathstr::Str;
 use std::ops::{Add, Rem, RemAssign};
 
 /// Remains of the `Str` by a `char`.
