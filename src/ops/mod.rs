@@ -133,11 +133,24 @@ pub mod rem;
 pub mod sub;
 
 use crate::mathstr::Str;
-use std::ops::Neg;
+use std::ops::{Index, IndexMut, Neg, Range};
 
 impl Neg for Str {
     type Output = Str;
     fn neg(self) -> Self::Output {
         Str(self.0.chars().rev().collect())
+    }
+}
+
+impl Index<Range<usize>> for Str {
+    type Output = str;
+    fn index(&self, index: Range<usize>) -> &Self::Output {
+        &self.0[index]
+    }
+}
+
+impl IndexMut<Range<usize>> for Str {
+    fn index_mut(&mut self, index: Range<usize>) -> &mut Self::Output {
+        &mut self.0[index]
     }
 }

@@ -3,7 +3,6 @@
 use crate::mathstr::Str;
 use std::ops::{Add, Rem, RemAssign};
 
-/// Remains of the `Str` by a `char`.
 impl Rem<char> for Str {
     type Output = Str;
     fn rem(self, other: char) -> Self::Output {
@@ -14,7 +13,6 @@ impl Rem<char> for Str {
     }
 }
 
-/// Remains of the `Str` by a `char`.
 impl RemAssign<char> for Str {
     fn rem_assign(&mut self, other: char) {
         if let Some(i) = self.0.rfind(other) {
@@ -23,7 +21,6 @@ impl RemAssign<char> for Str {
     }
 }
 
-/// Remains of the `Str` by a `&str`.
 impl Rem<&str> for Str {
     type Output = Str;
     fn rem(self, other: &str) -> Self::Output {
@@ -34,7 +31,6 @@ impl Rem<&str> for Str {
     }
 }
 
-/// Remains of the `Str` by a `&str`.
 impl RemAssign<&str> for Str {
     fn rem_assign(&mut self, other: &str) {
         if let Some(i) = self.0.rfind(other) {
@@ -43,7 +39,6 @@ impl RemAssign<&str> for Str {
     }
 }
 
-/// Remains of the `Str` by a `String`.
 impl Rem<String> for Str {
     type Output = Str;
     fn rem(self, other: String) -> Self::Output {
@@ -54,7 +49,6 @@ impl Rem<String> for Str {
     }
 }
 
-/// Remains of the `Str` by a `String`.
 impl RemAssign<String> for Str {
     fn rem_assign(&mut self, other: String) {
         if let Some(i) = self.0.rfind(other.as_str()) {
@@ -63,7 +57,6 @@ impl RemAssign<String> for Str {
     }
 }
 
-/// Remains of the `Str` by a `Str`.
 impl Rem<Str> for Str {
     type Output = Str;
     fn rem(self, other: Str) -> Self::Output {
@@ -82,7 +75,7 @@ impl RemAssign<Str> for Str {
     }
 }
 
-/// Weird hacky code to bump the index.
+// Weird hacky code to bump the index.
 fn bump<T>(a: T) -> T
 where
     T: Add<Output = T> + From<u8>,

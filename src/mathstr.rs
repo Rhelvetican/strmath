@@ -84,10 +84,6 @@ impl Str {
         }
     }
 
-    /// Converts the `Str` to a vector of bytes.
-    pub fn into_bytes(self) -> Vec<u8> {
-        self.0.into_bytes()
-    }
 
     /// Converts the `Str` to a `String`.
     pub fn into_string(self) -> StdString {
