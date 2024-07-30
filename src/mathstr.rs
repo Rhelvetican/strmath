@@ -84,7 +84,6 @@ impl Str {
         }
     }
 
-
     /// Converts the `Str` to a `String`.
     pub fn into_string(self) -> StdString {
         self.0
