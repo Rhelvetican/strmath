@@ -24,11 +24,13 @@
 //! let x = MathString::from("World!");
 //! let y = s + x;
 //!
-//! assert_eq!(y.to_str(), "Hello, World!");
+//! assert_eq!(y, "Hello, World!");
 //! ```
 
 mod mathstr;
 mod ops;
+#[cfg(feature = "serde")]
+mod serde;
 
 #[cfg(test)]
 mod test;

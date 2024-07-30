@@ -14,4 +14,9 @@ homepage = "https://github.com/Rhelvetican/strmath"
 name = "strmath"
 path = "src/lib.rs"
 
+[dependencies.serde]
+version = "1"
+optional = true
+
 [features]
+serde = ["dep:serde"]

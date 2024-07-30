@@ -5,7 +5,7 @@ pub mod test_module {
     #[test]
     fn create_str() {
         let w = Str::new();
-        assert_eq!(&w.0, "");
+        assert_eq!(w.0, "");
     }
 
     #[test]
