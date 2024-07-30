@@ -17,32 +17,15 @@
 //! ## Str
 //! The main struct that holds the string.
 //! It is *just* a simple wrapper around the String struct.
+//!
 //! ```rust
-//! use strmath::Str;
-//! let s = Str::from("Hello, ");
-//! let x = Str::from("World!");
+//! use strmath::MathString;
+//! let s = MathString::from("Hello, ");
+//! let x = MathString::from("World!");
 //! let y = s + x;
+//!
+//! assert_eq!(y.to_str(), "Hello, World!");
 //! ```
-//!
-//! ## Ops
-//! The module that holds the operations. Refer to the [_ops_][ops] module for more information.
-//! It contains the following operations:
-//! * Add
-//! * AddAssign
-//! * Sub
-//! * SubAssign
-//! * Mul
-//! * MulAssign
-//! * Div
-//! * DivAssign
-//! * Rem
-//! * RemAssign
-//!
-//! ## Implementations
-//! The module that holds the implementations. Refer to the [_imp_][imp] module for more information.
-//!
-//! ## Formatting
-//! The module that holds the formatting functions. Refer to the [_fmt_][fmt] module for more information.
 
 mod mathstr;
 mod ops;
