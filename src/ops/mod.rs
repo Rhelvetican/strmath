@@ -26,7 +26,7 @@
 //! let s = Str::from("Hello, ");
 //! let x = Str::from("World!");
 //! let y = s + x;
-//! println!("{}", y.to_str());
+//! println!("{}", y.as_str());
 //! ```
 //!
 //! ### AddAssign
@@ -36,7 +36,7 @@
 //! let mut s = Str::from("Hello, ");
 //! let x = Str::from("World!");
 //! s += x;
-//! println!("{}", s.to_str());
+//! println!("{}", s.as_str());
 //! ```
 //!
 //! ## Subtraction functions
@@ -48,7 +48,7 @@
 //! let s = Str::from("Hello, World!");
 //! let x = Str::from("World!");
 //! let y = s - x;
-//! println!("{}", y.to_str());
+//! println!("{}", y.as_str());
 //! ```
 //!
 //! ### SubAssign
@@ -58,7 +58,7 @@
 //! let mut s = Str::from("Hello, World!");
 //! let x = Str::from("World!");
 //! s -= x;
-//! println!("{}", s.to_str());
+//! println!("{}", s.as_str());
 //! ```
 //!
 //! ## Multiplication functions
@@ -70,7 +70,7 @@
 //! let s = Str::from("Hi ");
 //! let x = 7;
 //! let y = s * x;
-//! println!("{}", y.to_str());
+//! println!("{}", y.as_str());
 //! ```
 //! ### MulAssign
 //! The `MulAssign` trait is used to multiply a string with another string/chars.
@@ -79,7 +79,7 @@
 //! let mut s = Str::from("Hi ");
 //! let x = 7;
 //! s *= x;
-//! println!("{}", s.to_str());
+//! println!("{}", s.as_str());
 //! ```
 //!
 //! ## Division functions
@@ -91,7 +91,7 @@
 //! let s = Str::from("Hello, World!");
 //! let x = ",";
 //! let y = s / x;
-//! println!("{}", y.to_str());
+//! println!("{}", y.as_str());
 //! ```
 //!
 //! ### DivAssign
@@ -101,7 +101,7 @@
 //! let mut s = Str::from("Hello, World!");
 //! let x = ",";
 //! s /= x;
-//! println!("{}", s.to_str());
+//! println!("{}", s.as_str());
 //! ```
 //!
 //! ## Remainder functions
@@ -113,7 +113,7 @@
 //! let s = Str::from("Hello, World!");
 //! let x = ",";
 //! let y = s % x;
-//! println!("{}", y.to_str());
+//! println!("{}", y.as_str());
 //! ```
 //!
 //! ### RemAssign
@@ -123,7 +123,7 @@
 //! let mut s = Str::from("Hello, World!");
 //! let x = ",";
 //! s %= x;
-//! println!("{}", s.to_str());
+//! println!("{}", s.as_str());
 //! ```
 
 pub mod add;

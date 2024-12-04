@@ -1,22 +1,22 @@
 [package]
-name = "strmath"
-description = "Do math with your strings."
-keywords = ["string", "strmath"]
-authors = ["Rhelvetican <bionicvnb@gmail.com>"]
-readme = "README.md"
-license = "MIT"
-version = "0.6.2"
-edition = "2021"
-repository = "https://github.com/Rhelvetican/strmath"
-homepage = "https://github.com/Rhelvetican/strmath"
+    authors     = ["Rhelvetican <bionicvnb@gmail.com>"]
+    description = "Do math with your strings."
+    edition     = "2021"
+    homepage    = "https://github.com/Rhelvetican/strmath"
+    keywords    = ["math", "string", "strmath"]
+    license     = "MIT"
+    name        = "strmath"
+    readme      = "README.md"
+    repository  = "https://github.com/Rhelvetican/strmath"
+    version     = "0.7.2"
 
 [lib]
-name = "strmath"
-path = "src/lib.rs"
+    name = "strmath"
+    path = "src/lib.rs"
 
 [dependencies.serde]
-version = "1"
-optional = true
+    optional = true
+    version  = "1"
 
 [features]
-serde = ["dep:serde"]
+    serde = ["dep:serde"]

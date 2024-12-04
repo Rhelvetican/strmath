@@ -19,25 +19,23 @@
 //! It is *just* a simple wrapper around the String struct.
 //!
 //! ```rust
-//! use strmath::MathString;
-//! let s = MathString::from("Hello, ");
-//! let x = MathString::from("World!");
+//! use strmath::Str;
+//! let s = Str::from("Hello, ");
+//! let x = Str::from("World!");
 //! let y = s + x;
 //!
-//! assert_eq!(y, "Hello, World!");
+//! assert_eq!(y, "Hello, World!".into());
 //! ```
 
-mod mathstr;
-mod ops;
-#[cfg(feature = "serde")]
+pub mod mathstr;
+pub mod ops;
+
+#[macro_use]
+mod macros;
+
 mod serde;
 
 #[cfg(test)]
 mod test;
 
-use mathstr::Str;
-pub type MathString = Str;
-
-pub mod prelude {
-    pub use crate::MathString;
-}
+pub use mathstr::Str;
