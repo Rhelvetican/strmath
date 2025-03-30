@@ -1,12 +1,10 @@
 #[macro_export]
-macro_rules! impl_from {
-    ($($t:ty),+) => {
+#[doc(hidden)]
+macro_rules! declare_modules {
+    ($($id:ident),+) => {
         $(
-        impl From<$t> for $crate::Str {
-            fn from(value: $t) -> $crate::Str {
-                $crate::Str(::std::string::String::from(value))
-            }
-        }
+        #[doc(hidden)]
+        pub mod $id;
         )+
-    };
+    }
 }

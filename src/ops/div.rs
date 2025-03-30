@@ -1,68 +1,91 @@
-//! # Division functions
-
-use crate::Str;
 use std::ops::{Div, DivAssign};
 
-/// Divides the `Str` by another `Str`.
-impl Div<Str> for Str {
-    type Output = Str;
-    fn div(self, other: Str) -> Self::Output {
-        Str(match self.0.find(&other.0) {
-            Some(i) => self.0[..i].to_string(),
-            None => self.0,
-        })
+use crate::StrMath;
+
+impl<'a> Div for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn div(self, rhs: Self) -> Self::Output {
+        Self::new_owned(
+            self.split_once(rhs.as_ref())
+                .map(|x| x.0.to_string())
+                .unwrap_or(self.inner.into_owned()),
+        )
     }
 }
 
-/// Divides the `Str` by another `Str`.
-impl DivAssign<Str> for Str {
-    fn div_assign(&mut self, other: Str) {
-        match self.0.find(&other.0) {
-            Some(i) => self.0 = self.0[..i].to_string(),
-            None => {
-                let str = self.0.as_str();
-                self.0.clone_from(&str.to_owned())
-            }
+impl<'a> Div<&'a str> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn div(self, rhs: &'a str) -> Self::Output {
+        Self::new_owned(
+            self.split_once(rhs)
+                .map(|x| x.0.to_string())
+                .unwrap_or(self.inner.into_owned()),
+        )
+    }
+}
+
+impl<'a> Div<char> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn div(self, rhs: char) -> Self::Output {
+        Self::new_owned(
+            self.split_once(rhs)
+                .map(|x| x.0.to_string())
+                .unwrap_or(self.inner.into_owned()),
+        )
+    }
+}
+
+impl<'a> Div<&[char]> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn div(self, rhs: &[char]) -> Self::Output {
+        Self::new_owned(
+            self.split_once(rhs)
+                .map(|x| x.0.to_string())
+                .unwrap_or(self.inner.into_owned()),
+        )
+    }
+}
+
+impl DivAssign for StrMath<'_> {
+    #[inline]
+    fn div_assign(&mut self, rhs: Self) {
+        if let Some(x) = self.split_once(rhs.as_ref()).map(|x| x.0.to_string()) {
+            *self = Self::new_owned(x)
         }
     }
 }
 
-/// Divides the `Str` by a `char`.
-impl Div<char> for Str {
-    type Output = Str;
-    fn div(self, other: char) -> Self::Output {
-        Str(match self.0.find(other) {
-            Some(i) => self.0[..i].to_string(),
-            None => self.0,
-        })
-    }
-}
-
-/// Divides the `Str` by a `char`.
-impl DivAssign<char> for Str {
-    fn div_assign(&mut self, other: char) {
-        if let Some(i) = self.0.find(other) {
-            self.0 = self.0[..i].to_string()
+impl<'a> DivAssign<&'a str> for StrMath<'a> {
+    #[inline]
+    fn div_assign(&mut self, rhs: &'a str) {
+        if let Some(x) = self.split_once(rhs).map(|x| x.0.to_string()) {
+            *self = Self::new_owned(x)
         }
     }
 }
 
-/// Divides the `Str` by a `&str`.
-impl Div<&str> for Str {
-    type Output = Str;
-    fn div(self, other: &str) -> Self::Output {
-        Str(match self.0.find(other) {
-            Some(i) => self.0[..i].to_string(),
-            None => self.0,
-        })
+impl DivAssign<char> for StrMath<'_> {
+    #[inline]
+    fn div_assign(&mut self, rhs: char) {
+        if let Some(x) = self.split_once(rhs).map(|x| x.0.to_string()) {
+            *self = Self::new_owned(x)
+        }
     }
 }
 
-/// Divides the `Str` by a `&str`.
-impl DivAssign<&str> for Str {
-    fn div_assign(&mut self, other: &str) {
-        if let Some(i) = self.0.find(other) {
-            self.0 = self.0[..i].to_string()
+impl<'a> DivAssign<&'a [char]> for StrMath<'a> {
+    #[inline]
+    fn div_assign(&mut self, rhs: &'a [char]) {
+        if let Some(x) = self.split_once(rhs).map(|x| x.0.to_string()) {
+            *self = Self::new_owned(x)
         }
     }
 }

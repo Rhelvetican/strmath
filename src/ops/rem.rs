@@ -1,84 +1,91 @@
-//! Remainder functions
+use std::ops::{Rem, RemAssign};
 
-use crate::mathstr::Str;
-use std::ops::{Add, Rem, RemAssign};
+use crate::StrMath;
 
-impl Rem<char> for Str {
-    type Output = Str;
-    fn rem(self, other: char) -> Self::Output {
-        Str(match self.0.rfind(other) {
-            Some(i) => self.0[bump(i)..].to_string(),
-            None => self.0,
-        })
+impl<'a> Rem for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn rem(self, rhs: Self) -> Self::Output {
+        Self::new_owned(
+            self.split_once(rhs.as_ref())
+                .map(|x| x.1.to_string())
+                .unwrap_or(self.inner.into_owned()),
+        )
     }
 }
 
-impl RemAssign<char> for Str {
-    fn rem_assign(&mut self, other: char) {
-        if let Some(i) = self.0.rfind(other) {
-            self.0 = self.0[bump(i)..].to_string()
+impl<'a> Rem<&'a str> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn rem(self, rhs: &'a str) -> Self::Output {
+        Self::new_owned(
+            self.split_once(rhs)
+                .map(|x| x.1.to_string())
+                .unwrap_or(self.inner.into_owned()),
+        )
+    }
+}
+
+impl<'a> Rem<char> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn rem(self, rhs: char) -> Self::Output {
+        Self::new_owned(
+            self.split_once(rhs)
+                .map(|x| x.1.to_string())
+                .unwrap_or(self.inner.into_owned()),
+        )
+    }
+}
+
+impl<'a> Rem<&[char]> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn rem(self, rhs: &[char]) -> Self::Output {
+        Self::new_owned(
+            self.split_once(rhs)
+                .map(|x| x.1.to_string())
+                .unwrap_or(self.inner.into_owned()),
+        )
+    }
+}
+
+impl RemAssign for StrMath<'_> {
+    #[inline]
+    fn rem_assign(&mut self, rhs: Self) {
+        if let Some(x) = self.split_once(rhs.as_ref()).map(|x| x.1.to_string()) {
+            *self = Self::new_owned(x)
         }
     }
 }
 
-impl Rem<&str> for Str {
-    type Output = Str;
-    fn rem(self, other: &str) -> Self::Output {
-        Str(match self.0.rfind(other) {
-            Some(i) => self.0[bump(i)..].to_string(),
-            None => self.0,
-        })
-    }
-}
-
-impl RemAssign<&str> for Str {
-    fn rem_assign(&mut self, other: &str) {
-        if let Some(i) = self.0.rfind(other) {
-            self.0 = self.0[bump(i)..].to_string()
+impl<'a> RemAssign<&'a str> for StrMath<'a> {
+    #[inline]
+    fn rem_assign(&mut self, rhs: &'a str) {
+        if let Some(x) = self.split_once(rhs).map(|x| x.1.to_string()) {
+            *self = Self::new_owned(x)
         }
     }
 }
 
-impl Rem<String> for Str {
-    type Output = Str;
-    fn rem(self, other: String) -> Self::Output {
-        Str(match self.0.rfind(other.as_str()) {
-            Some(i) => self.0[bump(i)..].to_string(),
-            None => self.0,
-        })
-    }
-}
-
-impl RemAssign<String> for Str {
-    fn rem_assign(&mut self, other: String) {
-        if let Some(i) = self.0.rfind(other.as_str()) {
-            self.0 = self.0[bump(i)..].to_string()
+impl RemAssign<char> for StrMath<'_> {
+    #[inline]
+    fn rem_assign(&mut self, rhs: char) {
+        if let Some(x) = self.split_once(rhs).map(|x| x.1.to_string()) {
+            *self = Self::new_owned(x)
         }
     }
 }
 
-impl Rem<Str> for Str {
-    type Output = Str;
-    fn rem(self, other: Str) -> Self::Output {
-        Str(match self.0.rfind(other.0.as_str()) {
-            Some(i) => self.0[bump(i)..].to_string(),
-            None => self.0,
-        })
-    }
-}
-
-impl RemAssign<Str> for Str {
-    fn rem_assign(&mut self, other: Str) {
-        if let Some(i) = self.0.rfind(other.0.as_str()) {
-            self.0 = self.0[bump(i)..].to_string()
+impl<'a> RemAssign<&'a [char]> for StrMath<'a> {
+    #[inline]
+    fn rem_assign(&mut self, rhs: &'a [char]) {
+        if let Some(x) = self.split_once(rhs).map(|x| x.1.to_string()) {
+            *self = Self::new_owned(x)
         }
     }
-}
-
-// Weird hacky code to bump the index.
-fn bump<T>(a: T) -> T
-where
-    T: Add<Output = T> + From<u8>,
-{
-    a + T::from(1)
 }

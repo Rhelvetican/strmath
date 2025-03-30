@@ -1,22 +1,21 @@
-//! # Addition functions
-use crate::mathstr::Str;
-use std::{
-    fmt::Display,
-    ops::{Add, AddAssign},
-};
+use std::ops::{Add, AddAssign};
 
-/// Adds any type that implements the `Display` trait to the `Str`.
-impl<T: Display> Add<T> for Str {
-    type Output = Str;
+use crate::{strmath::ToMathStr, StrMath};
 
-    fn add(self, other: T) -> Self::Output {
-        Str(self.0 + &other.to_string())
+impl<'a, T: 'a + ToMathStr<'a>> Add<T> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn add(mut self, rhs: T) -> Self::Output {
+        let s = rhs.to_math_str();
+        self.inner.to_mut().push_str(&s);
+        self
     }
 }
 
-/// Adds any type that implements the `Display` trait to the `Str`.
-impl<T: Display> AddAssign<T> for Str {
-    fn add_assign(&mut self, other: T) {
-        self.0 += &other.to_string();
+impl<'a, T: 'a + ToMathStr<'a>> AddAssign<T> for StrMath<'a> {
+    #[inline]
+    fn add_assign(&mut self, rhs: T) {
+        self.inner.to_mut().push_str(&rhs.to_math_str());
     }
 }

@@ -1,60 +1,61 @@
-//! Multiplication functions
-
-use crate::mathstr::Str;
 use std::ops::{Mul, MulAssign};
 
-/// Multiplies the `Str` by another `Str`.
-impl Mul for Str {
-    type Output = Str;
-    fn mul(self, other: Self) -> Self::Output {
-        Str(self.0.repeat(other.0.len()))
-    }
-}
+use crate::{strmath::ToMathStr, utils::Reverse, StrMath};
 
-/// Multiplies the `Str` by an `isize`.
-impl Mul<isize> for Str {
-    type Output = Str;
-    fn mul(self, other: isize) -> Self::Output {
-        match other {
-            0 => Str::new(),
-            ..=0 => Str(self.0.chars().rev().collect::<String>().repeat(abs(other))),
-            1.. => Str(self.0.repeat(abs(other))),
+impl<'a> Mul<isize> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn mul(mut self, rhs: isize) -> Self::Output {
+        if rhs.is_negative() {
+            self.reverse();
         }
+
+        let rhs = rhs.unsigned_abs();
+        self * rhs
     }
 }
 
-/// Multiplies the `Str` by an `isize`.
-impl MulAssign<isize> for Str {
-    fn mul_assign(&mut self, other: isize) {
-        match other {
-            0 => self.0 = String::new(),
-            ..=0 => self.0 = self.0.chars().rev().collect::<String>().repeat(abs(other)),
-            1.. => self.0 = self.0.repeat(abs(other)),
-        };
+impl<'a> Mul<usize> for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn mul(self, rhs: usize) -> Self::Output {
+        Self::new_owned(self.repeat(rhs))
     }
 }
 
-/// Multiplies an `isize` by a `Str`.
-impl Mul<Str> for isize {
-    type Output = Str;
-    fn mul(self, other: Str) -> Self::Output {
-        match self {
-            0 => Str::new(),
-            ..=0 => Str(other.0.chars().rev().collect::<String>().repeat(abs(self))),
-            1.. => Str(other.0.repeat(abs(self))),
+impl<'a> Mul for StrMath<'a> {
+    type Output = StrMath<'a>;
+
+    #[inline]
+    fn mul(self, rhs: Self) -> Self::Output {
+        self * rhs.to_math_str().len()
+    }
+}
+
+impl MulAssign<isize> for StrMath<'_> {
+    #[inline]
+    fn mul_assign(&mut self, rhs: isize) {
+        if rhs.is_negative() {
+            self.reverse();
         }
+
+        let rhs = rhs.unsigned_abs();
+        *self *= rhs;
     }
 }
 
-/// Multiplies an `Str` by a `Str`.
-impl MulAssign for Str {
-    fn mul_assign(&mut self, other: Self) {
-        self.0 = self.0.repeat(other.0.len());
+impl MulAssign<usize> for StrMath<'_> {
+    #[inline]
+    fn mul_assign(&mut self, rhs: usize) {
+        *(self.to_mut()) = self.inner.as_ref().repeat(rhs);
     }
 }
 
-/// Hacky absolute value function.
-fn abs(a: isize) -> usize {
-    let a = if a < 0 { -a } else { a };
-    a as usize
+impl<'a> MulAssign<StrMath<'a>> for StrMath<'a> {
+    #[inline]
+    fn mul_assign(&mut self, rhs: StrMath<'a>) {
+        *self *= rhs.len();
+    }
 }
