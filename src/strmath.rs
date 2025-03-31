@@ -1,6 +1,6 @@
 use std::{
     borrow::Cow,
-    fmt::{Debug, Display, Formatter, Result},
+    fmt::{Arguments, Debug, Display, Formatter, Result, Write},
 };
 
 #[derive(Clone, PartialEq, Eq, Default)]
@@ -137,5 +137,22 @@ impl<'a> ToMathStr<'a> for StrMath<'a> {
     #[inline]
     fn to_math_str(self) -> StrMath<'a> {
         self
+    }
+}
+
+impl Write for StrMath<'_> {
+    #[inline]
+    fn write_fmt(&mut self, args: Arguments<'_>) -> Result {
+        self.inner.to_mut().write_fmt(args)
+    }
+
+    #[inline]
+    fn write_str(&mut self, s: &str) -> Result {
+        self.inner.to_mut().write_str(s)
+    }
+
+    #[inline]
+    fn write_char(&mut self, c: char) -> Result {
+        self.inner.to_mut().write_char(c)
     }
 }

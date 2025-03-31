@@ -2,7 +2,7 @@ use std::ops::Neg;
 
 use crate::{declare_modules, utils::Reverse, StrMath};
 
-declare_modules!(add, sub, mul, div, rem, deref, eq, ord);
+declare_modules!(add, sub, mul, div, rem, deref, eq, ord, sh);
 
 impl Neg for StrMath<'_> {
     type Output = Self;
