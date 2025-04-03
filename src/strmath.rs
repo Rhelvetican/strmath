@@ -1,9 +1,13 @@
+//! # StrMath
+//!
+//! The actual implementation for [`StrMath`].
+
 use std::{
     borrow::Cow,
     fmt::{Arguments, Debug, Display, Formatter, Result, Write},
 };
 
-#[derive(Clone, PartialEq, Eq, Default)]
+#[derive(Clone, PartialEq, Eq, Default, Hash)]
 #[repr(transparent)]
 /// The main type that implements mathematical operations for strings.
 pub struct StrMath<'a> {
