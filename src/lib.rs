@@ -9,6 +9,10 @@ mod utils;
 pub mod ops;
 pub mod strmath;
 
+//#[cfg(feature = "serde")]
+#[doc(hidden)]
+pub mod serde;
+
 mod prelude {
     pub use crate::{ops::*, strmath::StrMath};
 }
